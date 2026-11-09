@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokedéx Ultra</title>
+    <link rel="pokemon icon" href="https://cdn.icon-icons.com/icons2/851/PNG/512/Pokedex_tool_icon-icons.com_67529.png" type="image/x-icon">
+    <style>
+        #pokemon-image{
+    height: 350px;
+    width: 350px;
+}
+
+body{
+    margin: 0;
+}
+
+#banner{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 360px;
+    width: 100%;
+    background-color: rgb(192, 79, 79);
+}
+
+.info{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-left:10px;
+    padding-right:10px;
+    border: 2px dashed black;
+    border-radius: 10%;
+    background-color: white;
+    width: 230px;
+
+
+}
+
+#corpo{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    background-color: #000;
+
+}
+
+::placeholder {
+    color: rgb(255, 255, 255);}
+    </style>
+
+</head>
+<body>
+<div id="corpo">
+    <div id="banner">
+        <h1>Pokedéx Ultra</h1>
+        <img id="pokemon-image" src="https://64.media.tumblr.com/f4918498af34c8764de970a2ca76795b/tumblr_mvzj2elEQA1rfjowdo1_500.gif" alt="pokeball gif">
+        
+    </div>
+    
+        <input class="info" style="border-radius: 0%; background-color: grey; height: 30px;" type="search" id="search" placeholder="Search a pokemon..." >
+        
+    
+    
+</div>  
+ <script>
+     let corpo = document.getElementById("corpo");
+let pila = document.getElementById('search');
+
+// Função para processar o evento de teclado
+function handleKeyPress(event) {
+  // Obtém o valor da tecla pressionada
+  let key = event.key;
+
+  // Verifica se a tecla pressionada é um número, operador ou tecla especial
+  if (/Enter/i.test(key)) {
+
+    // Chama a função atualizar com o valor correspondente à tecla pressionada
+    search();
+  }
+
+}
+
+// Adiciona um ouvinte de eventos de teclado ao documento
+document.addEventListener('keydown', handleKeyPress);
+
+function search() {
+  pila = document.getElementById('search').value
+  pila = pila.toLowerCase();
+
+  if (pila == "luisv") {
+    corpo.innerHTML = `
+        <div id="banner">
+        <img src="https://cdn.discordapp.com/attachments/1194405743680573530/1215446910345936956/yamano.png?ex=65fcc825&is=65ea5325&hm=f093895e8f13585ce0f0a5e74ed83467a500e679309d286b0a071b0d63d01afe&" style="width:1150px" alt="Imagem de luis" id="pokemon-image">
+        </div>
+        <div class="info">
+          <h1>Name: Luís Vieira</h1>
+          <h2 class="id">Id: 69420</h2>
+          <h3 class="type">Type: gay</h3>
+          <h3 class="altura">Height: 1.50</h3>
+          <h3 class="peso">Weight: 93Kg</h3>
+          </div>
+        `;
+  } else if (pila == "gabriel") {
+    corpo.innerHTML = `
+        <div id="banner">
+        <img src="https://cdn.discordapp.com/attachments/1194405743680573530/1215444729768972308/IMG_0027.jpg?ex=65fcc61d&is=65ea511d&hm=c15c9c6da87c78ef8ce556c60918e8e2354de144f73ec4ec5e78a8038e2af133&" alt="Imagem de gabriel" id="pokemon-image">
+        </div>
+        <div class="info">
+          <h1>Name: Gabriel</h1>
+          <h2 class="id">Id: 42069</h2>
+          <h3 class="type">Type: shit</h3>
+          <h3 class="altua">Height: 1.32</h3>
+          <h3 class="peso">Weight: 2Kg</h3>
+          </div>
+        `;
+  
+  } else {
+    fetch(`https://pokeapi.co/api/v2/pokemon/${pila}`)
+      .then(response => response.json())
+      .then(data => {
+        const name = data.name;
+        const id = data.id;
+        const height = data.height;
+        const weight = data.weight;
+        const image = data.sprites.front_default;
+        let type = [];
+
+        data.types.forEach(item => {
+          type.push(item.type.name);
+        });
+
+        corpo.innerHTML = `
+        <div id="banner">
+        <img src="${image}" alt="Imagem de ${name}" id="pokemon-image">
+        </div>
+        <div class="info">
+          <h1>Name: ${name}</h1>
+          <h2 class="id">Id: ${id}</h2>
+          <h3 class="type">Type: ${type.join(', ')}</h3>
+          <h3 class="altua">Height: ${height}</h3>
+          <h3 class="peso">Weight: ${weight}</h3>
+          </div>
+        `;
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  }
+
+
+}
+
+
+
+ </script>
+</body>
+</html>
