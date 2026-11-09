@@ -90,7 +90,6 @@ function search() {
   pila = document.getElementById('search').value
   pila = pila.toLowerCase();
 
-  else {
     fetch(`https://pokeapi.co/api/v2/pokemon/${pila}`)
       .then(response => response.json())
       .then(data => {
@@ -119,7 +118,6 @@ function search() {
         `;
       })
       .catch(error => console.error('Error fetching data:', error));
-  }
 
 
 }
