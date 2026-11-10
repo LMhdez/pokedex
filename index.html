@@ -90,35 +90,7 @@ function search() {
   pila = document.getElementById('search').value
   pila = pila.toLowerCase();
 
-  if (pila == "luisv") {
-    corpo.innerHTML = `
-        <div id="banner">
-        <img src="https://cdn.discordapp.com/attachments/1194405743680573530/1215446910345936956/yamano.png?ex=65fcc825&is=65ea5325&hm=f093895e8f13585ce0f0a5e74ed83467a500e679309d286b0a071b0d63d01afe&" style="width:1150px" alt="Imagem de luis" id="pokemon-image">
-        </div>
-        <div class="info">
-          <h1>Name: Luís Vieira</h1>
-          <h2 class="id">Id: 69420</h2>
-          <h3 class="type">Type: gay</h3>
-          <h3 class="altura">Height: 1.50</h3>
-          <h3 class="peso">Weight: 93Kg</h3>
-          </div>
-        `;
-  } else if (pila == "gabriel") {
-    corpo.innerHTML = `
-        <div id="banner">
-        <img src="https://cdn.discordapp.com/attachments/1194405743680573530/1215444729768972308/IMG_0027.jpg?ex=65fcc61d&is=65ea511d&hm=c15c9c6da87c78ef8ce556c60918e8e2354de144f73ec4ec5e78a8038e2af133&" alt="Imagem de gabriel" id="pokemon-image">
-        </div>
-        <div class="info">
-          <h1>Name: Gabriel</h1>
-          <h2 class="id">Id: 42069</h2>
-          <h3 class="type">Type: shit</h3>
-          <h3 class="altua">Height: 1.32</h3>
-          <h3 class="peso">Weight: 2Kg</h3>
-          </div>
-        `;
-  
-  } else {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${pila}`)
+  fetch(`https://pokeapi.co/api/v2/pokemon/${encodeURIComponent(pila)}`)
       .then(response => response.json())
       .then(data => {
         const name = data.name;
